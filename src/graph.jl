@@ -9,3 +9,5 @@ struct FixedDirectedGraph <: FixedGraph
     size::Int
     edges::Array{Tuple{Int, Int}}
 end
+
+FixedDirectedGraph(size::Int) = FixedDirectedGraph(size, Array{Tuple{Int, Int}}([]))

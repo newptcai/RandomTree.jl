@@ -4,13 +4,14 @@ A Julia package for random trees and related simulations. It currently supports 
 following types of random trees
 
 * [Conditional Galton Watson](https://arxiv.org/abs/1112.0510) tree, including
-    * Cayley Tree
-    * Binary Tree
-    * Catalan Tree
-    * DAry Tree
-    * Motzkin Tree
-* [Random Recursive Tree](https://en.wikipedia.org/wiki/Recursive_tree)
+    * Cayley
+    * Binary
+    * Catalan
+    * DAry
+    * Motzkin
+
 and these simulations
+
 * k-cut
 * sum of log(subtree sizes) over all fringe subtrees
 * height
@@ -19,6 +20,10 @@ It also provides a simply function for drawing trees.
 
 The package can be used as a library in your code or in a Jupyter notebook. It can also run as a
 standalone script.
+
+The generation of conditional Galton-Watson trees uses [a very efficient
+algorithm](https://search.proquest.com/openview/8fe4ed7479bf9d0df48152a6b91e6191/1?cbl=666313&pq-origsite=gscholar)
+by Luc Devroye. Generating trees of size 10^6 takes about 20-30 ms.
 
 ## Installation
 

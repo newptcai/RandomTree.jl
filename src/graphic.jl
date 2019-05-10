@@ -27,13 +27,7 @@ function drawtree(tree_digraph::FixedGraph, show_label=false)
     digraph
 end
 
-function drawtree(deg_seq, show_label=false)
-    walker = GraphWalker(length(deg_seq))
-    walk(deg_seq, walker, true)
-    drawtree(walker.tree_digraph, show_label)
-end
-
 function drawtree(tree::FiniteTree, show_label=false)
-    deg_seq = degrees(tree)
-    drawtree(deg_seq, show_label)
+    tree_digraph = treegraph(tree)
+    drawtree(tree_digraph , show_label)
 end

@@ -174,7 +174,14 @@ function degrees_rotate(tree::GenCondGWTree)
     shuffle!(degseq)
 end
 
-# Cayley Tree
+function treegraph(tree::CondGWTree)
+    degseq = degrees(tree)
+    walker = GraphWalker(size(tree))
+    walk(degseq, walker, true)
+    walker.tree_digraph
+end
+
+# RandomdRecursiveTree
 
 struct RandomdRecursiveTree <: FiniteRandomTree
     spec::TreeSpec
@@ -191,6 +198,18 @@ function degrees(tree::RandomdRecursiveTree)
     end
 
     degseq
+end
+
+function treegraph(tree::RandomdRecursiveTree)::FixedGraph
+    treesize = size(tree)
+    graph = FixedDirectedGraph(treesize)
+
+    for current_node in 2:treesize
+        parent_node = rand(1:current_node-1)
+        push!(graph.edges, (parent_node, current_node))
+    end
+
+    graph
 end
 
 TREE_DICT = Dict("Cayley" => CayleyTree,

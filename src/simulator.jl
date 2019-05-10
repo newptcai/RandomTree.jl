@@ -99,3 +99,21 @@ end
 
 show(io::IO, sim::HeightSimulator) = printfmt(io, "height simulation of {}", sim.tree)
 
+# LeafSimulator
+
+struct LeafSimulator <: AbstractSimulator
+    tree::FiniteTree
+end
+
+function simulation(sim::LeafSimulator )
+    degseq = degrees(sim.tree)
+    leafnum = 0
+    for degree in degseq
+        if degree == 0
+            leafnum += 1
+        end
+    end
+    leafnum
+end
+
+show(io::IO, sim::LeafSimulator) = printfmt(io, "leaf number simulation of {}", sim.tree)

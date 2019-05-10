@@ -25,6 +25,7 @@ export
     distribution,
     maxdegree,
     degrees,
+    treegraph,
 
     # DFS Tree walker
     AbstractTreeWalker,
@@ -42,6 +43,7 @@ export
     LogProductSimulator,
     HeightSimulator,
     TotalPathSimulator,
+    LeafSimulator,
 
     # Simulations functions
     simulation, 
