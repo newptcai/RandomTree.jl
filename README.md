@@ -115,3 +115,14 @@ julia --machine-file machines.txt gwsim.jl -l 5 -n 10000 -t Cayley height
 ```
 where `machines.txt` contains the information of finding other machines.
 See Julia's [documentats](https://docs.julialang.org/en/v1/manual/getting-started/) for details.
+
+
+### Future plan
+
+The package currently lacks real documents. But the source code should be fairly easy to
+understand. Next step would definitely be adding more documents.
+
+Several random and fixed trees will be added
+* fixed complete d-ary trees
+* binary search trees
+* preferential attachment
