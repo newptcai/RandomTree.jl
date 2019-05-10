@@ -94,7 +94,7 @@ julia> sim_result = simulation(sim, 1000)
  4
 ```
 
-See `example.ipynb` in the notebook directory for more demonstrations.
+See [`example.ipynb`](https://nbviewer.jupyter.org/github/newptcai/RandomTree.jl/blob/master/notebook/demonstration.ipynb) in the notebook directory for more demonstrations.
 
 ### Use `RandomTree.jl` as a script
 
