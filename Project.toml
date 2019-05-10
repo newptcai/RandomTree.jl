@@ -3,6 +3,17 @@ uuid = "4a1f3257-0c50-5e0c-adb6-cb008aca27e2"
 authors = ["Xing Shi Cai <newptcai@gmail.com>"]
 version = "0.1.0"
 
+[deps]
+ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
+DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
+Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
+Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+Formatting = "59287772-0a20-5a39-b81b-1366585eb4c0"
+ProfileView = "c46f51b8-102a-5cf2-8d2c-8597cb0e0da7"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+SharedArrays = "1a1011a3-84de-559e-8e89-a11a2f7dc383"
+
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
