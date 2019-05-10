@@ -20,7 +20,6 @@ function drawtree(tree_digraph::FixedGraph, show_label=false)
                                     "ranksep" => "0.3",
                                     "width" => "0.3")
     if !show_label
-        println(show_label)
         node_attr["label"] = ""
     end
     digraph.node_attr = PyDict(node_attr)
@@ -35,6 +34,6 @@ function drawtree(deg_seq, show_label=false)
 end
 
 function drawtree(tree::FiniteTree, show_label=false)
-    deg_seq = rand_deg_seq(tree)
+    deg_seq = degrees(tree)
     drawtree(deg_seq, show_label)
 end
