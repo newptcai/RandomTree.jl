@@ -2,7 +2,7 @@ function drawtree(tree_digraph::FixedGraph, show_label=false)
     graphviz = pyimport("graphviz")
     digraph = graphviz.Graph()
 
-    [digraph.node("$i") for i in 1:size(tree_digraph)]
+    [digraph.node("$i") for i in nodes(tree_digraph)]
 
     for next = edges(tree_digraph)
         parent, child = next

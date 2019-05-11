@@ -234,4 +234,13 @@ end
         end
     end
 end
+
+@testset "FixedGraph" begin
+    tgraph = RandomTree.FixedTreeGraph(6, Tuple{Int64,Int64}[(1, 2), (2, 3), (3, 4), (1, 5), (4, 6)])
+    position_array = RandomTree.positions(tgraph)
+
+    @test position_array == [1 2; 3 1; 4 1; 5 1; 0 0; 0 0]
+    @test collect(degrees(tgraph)) == [2, 1, 1, 1, 0, 0]
 end
+end
+

@@ -109,10 +109,10 @@ end
 
 # GraphWalker
 mutable struct GraphWalker <: FirstOnlyDFSWalker
-    tree_digraph::FixedDirectedGraph
+    tree_digraph::FixedTreeGraph
 end
 
-GraphWalker(size::Int) = GraphWalker(FixedDirectedGraph(size, []))
+GraphWalker(size::Int) = GraphWalker(FixedTreeGraph(size, []))
 GraphWalker(tree::FiniteTree) = GraphWalker(size(tree))
 
 function visitfirst(walker::GraphWalker, degree_sequence, node_index, parent_index)

@@ -30,6 +30,16 @@ export
     degrees,
     treegraph,
 
+    # Graph representations of trees
+    FixedGraph,
+    FixedDirectedGraph,
+    FixedTreeGraph,
+
+    # Functions applicable to FixedGraph
+    positions,
+    edges,
+    nodes,
+
     # Tree walkers
     AbstractTreeWalker,
     DFSWalker,
