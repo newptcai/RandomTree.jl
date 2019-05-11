@@ -35,7 +35,6 @@ end
 
 function iterate(tree::FixedTreeGraph)
     position_array = positions(tree)
-    print(position_array)
 
     root_degree = position_array[1, 2]
 
