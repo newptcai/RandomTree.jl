@@ -36,7 +36,7 @@ end
 
 function simulation(sim::KcutSimulator)
     walker = KcutWalker(sim.k)
-    walk(sim.tree, walker, true)
+    walk(sim.tree, walker)
     walker.record_num
 end
 

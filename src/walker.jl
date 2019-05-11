@@ -1,4 +1,6 @@
 abstract type AbstractTreeWalker end
+abstract type DFSWalker <: AbstractTreeWalker end
+abstract type FirstOnlyDFSWalker <: DFSWalker end
 
 function visitfirst(walker::AbstractTreeWalker, degree_sequence, node_index, parent_index)
 end
@@ -45,14 +47,19 @@ function walk(degree_sequence, walker::AbstractTreeWalker, first_only=false::Boo
     degree_sequence
 end
 
-function walk(tree::FiniteTree, walker::AbstractTreeWalker, first_only=false::Bool)
+function walk(tree::FiniteTree, walker::FirstOnlyDFSWalker)
     degree_sequence = degrees(tree)
-    walk(degree_sequence, walker, first_only)
+    walk(degree_sequence, walker, true)
+end
+
+function walk(tree::FiniteTree, walker::DFSWalker)
+    degree_sequence = degrees(tree)
+    walk(degree_sequence, walker)
 end
 
 # DepthWalker
 
-struct DepthWalker <: AbstractTreeWalker
+struct DepthWalker <: FirstOnlyDFSWalker
     depth_seq::Vector{Int}
 end
 
@@ -66,7 +73,7 @@ end
 
 # SubtreeSizeWalker
 
-struct SubtreeSizeWalker <: AbstractTreeWalker
+struct SubtreeSizeWalker <: DFSWalker
     subtree_size_seq::Vector{Int}
 end
 
@@ -80,7 +87,7 @@ end
 
 # KcutWalker 
 
-mutable struct KcutWalker <: AbstractTreeWalker
+mutable struct KcutWalker <: FirstOnlyDFSWalker
     k::Int
     record_num::Vector{Int}
     record::Float64
@@ -101,7 +108,7 @@ function visitfirst(walker::KcutWalker, degree_sequence, node_index, parent_inde
 end
 
 # GraphWalker
-mutable struct GraphWalker <: AbstractTreeWalker
+mutable struct GraphWalker <: FirstOnlyDFSWalker
     tree_digraph::FixedDirectedGraph
 end
 

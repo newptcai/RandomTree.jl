@@ -49,10 +49,10 @@ end
         end
     end
 
-    @testset "RandomdRecursiveTree" begin
-        tree = RandomdRecursiveTree(50)
-        treetest(tree)
-    end
+    #@testset "RandomdRecursiveTree" begin
+    #    tree = RandomdRecursiveTree(50)
+    #    treetest(tree)
+    #end
 
     @testset "Degree sequence" begin
         testseq = [ 
@@ -98,7 +98,7 @@ end
 
     @testset "DepthWalker" begin
         walker = DepthWalker(tree)
-        @test walk(tree, walker, true) == [2, 1, 1, 0, 0]
+        @test walk(tree, walker) == [2, 1, 1, 0, 0]
         @test walker.depth_seq ==  [0, 1, 2, 3, 1]
         
         testseq= [ 
@@ -109,7 +109,7 @@ end
 
         for (degseq, depth_seq) in testseq
             walker = DepthWalker(tree)
-            @test degseq == walk(degseq, walker, true)
+            @test degseq == walk(degseq, walker)
             @test walker.depth_seq == depth_seq
         end
     end
@@ -140,7 +140,7 @@ end
         for (degseq, ret_edges) in testseq
             walker = GraphWalker(tree)
             @test size(walker.tree_digraph) == size(tree)
-            @test degseq == walk(degseq, walker, true)
+            @test degseq == walk(degseq, walker)
             @test RandomTree.edges(walker.tree_digraph) == ret_edges
         end
     end

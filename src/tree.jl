@@ -189,15 +189,18 @@ end
 RandomdRecursiveTree(size::Int) = RandomdRecursiveTree(TreeSpec(size, "Random Recursive Tree"))
 
 function degrees(tree::RandomdRecursiveTree)
-    treesize = size(tree)
-    degseq = zeros(Int, treesize)
+    # The code below is incorrect. It does not give the DFS degree seq. This is very different from
+    # Galton-Watson trees.
+    throw("unimplemented")
+    #treesize = size(tree)
+    #degseq = zeros(Int, treesize)
 
-    for current_node in 2:treesize
-        parent_node = rand(1:current_node-1)
-        degseq[parent_node] += 1
-    end
+    #for current_node in 2:treesize
+    #    parent_node = rand(1:current_node-1)
+    #    degseq[parent_node] += 1
+    #end
 
-    degseq
+    #degseq
 end
 
 function treegraph(tree::RandomdRecursiveTree)::FixedGraph

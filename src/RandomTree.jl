@@ -27,8 +27,10 @@ export
     degrees,
     treegraph,
 
-    # DFS Tree walker
+    # Tree walkers
     AbstractTreeWalker,
+    DFSWalker,
+    FirstOnlyDFSWalker,
     DepthWalker,
     KcutWalker,
     SubtreeSizeWalker,
