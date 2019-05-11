@@ -21,7 +21,7 @@ The package has implemented these simulations on trees
 
 The package also provides a simply function for drawing trees.
 
-The package can be used as a library in your code or in a Jupyter notebook. It can also run as a
+You can use `RandomTree.jl` as a library in your code or in a Jupyter notebook. It can also run as a
 standalone script.
 
 The generation of conditional Galton-Watson trees uses [a very efficient
@@ -30,7 +30,7 @@ by Luc Devroye. Generating trees of size 10^6 takes about 20-30 ms.
 
 ## Installation
 
-The package is in development and is not in Julia's official registry yet. Thus to use it, just
+The package is still in development and is not in Julia's official registry yet. Thus to use it, just
 clone this repository to your computer. Then change directory to the root of this repository, and
 start Julia REPL. Then enter the package mode by pressing `]`. You should see the prompt
 ```julia
