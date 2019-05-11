@@ -1,23 +1,25 @@
 # RandomTree.jl
 
-A Julia package for random trees and related simulations. It currently supports generating the
-following types of trees
+`RandomTree.jl` is a Julia package for simulations on random trees. It can efficiently generate
+several types of random trees up to size $10^8$, including
 
-* [Conditional Galton Watson](https://arxiv.org/abs/1112.0510) tree, including
+* [Conditional Galton Watson](https://arxiv.org/abs/1112.0510) tree
     * Cayley
     * Binary
     * Catalan
     * DAry
     * Motzkin
-* Full d-ary trees
+* Random Recursive Trees
 
-and these simulations
+The package has implemented these simulations on trees
 
-* k-cut
+* [k-cut](https://arxiv.org/abs/1804.03069)
 * sum of log(subtree sizes) over all fringe subtrees
 * height
 * total path length
-It also provides a simply function for drawing trees.
+* leaf number count
+
+The package also provides a simply function for drawing trees.
 
 The package can be used as a library in your code or in a Jupyter notebook. It can also run as a
 standalone script.
