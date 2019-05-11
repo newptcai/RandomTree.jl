@@ -21,6 +21,8 @@ function main()
     tree_ins = missing
     if tree_type == DAryTree
         tree_ins = DAryTree(size, parsed_args["d"])
+    elseif tree_type == FullDAryTree
+        tree_ins = FullDAryTree(parsed_args["tall"], parsed_args["d"])
     else
         tree_ins = tree_type(size)
     end

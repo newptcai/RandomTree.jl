@@ -3,7 +3,7 @@ module RandomTree
 using Random, DataStructures, Formatting, ArgParse, Distributions, Distributed, PyCall
 
 # For extending these methods
-import Base: show, size
+import Base: show, size, iterate, eltype, length
 
 export 
     # Types of trees
@@ -14,14 +14,17 @@ export
     CayleyTree, 
     BinaryTree, 
     CatalanTree, 
-    GenCondGWTree, 
+    GeneralCondGWTree, 
     DAryTree, 
     MotzkinTree, 
     ## Other random trees
     RandomdRecursiveTree,
+    ## Fixed trees
+    FullDAryTree,
 
     # Functions applicable to trees
-    size, name, 
+    size, 
+    name, 
     distribution,
     maxdegree,
     degrees,

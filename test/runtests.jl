@@ -53,6 +53,16 @@ end
     #    tree = RandomdRecursiveTree(50)
     #    treetest(tree)
     #end
+    
+    @testset "FullDAryTree" begin
+        tree = FullDAryTree(5, 1)
+        @test length(tree) == 6
+        @test collect(degrees(tree)) == [1, 1, 1, 1, 1, 0]
+        tree = FullDAryTree(3, 2)
+        @test length(tree) == 2^4-1
+        @test collect(degrees(tree)) == [2, 2, 2, 0, 0, 2, 0, 0, 2, 2, 0, 0, 2, 0, 0]
+        treetest(tree)
+    end
 
     @testset "Degree sequence" begin
         testseq = [ 

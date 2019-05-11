@@ -14,8 +14,13 @@ function parse_commandline()
             default=1
         "--log-size", "-l"
             dest_name="log_size"
-            help="log base 10 of the size of the Cayley tree"
+            help="log base 10 of the size of the tree"
             arg_type=Int
+        "--height", "-g"
+            dest_name="tall"
+            help="height of the tree (only takes effect for full d-ary trees)"
+            arg_type=Int
+            default=0
         "--tree", "-t"
             dest_name="tree_type"
             help="type of tree: " * join(keys(TREE_DICT), ", ")

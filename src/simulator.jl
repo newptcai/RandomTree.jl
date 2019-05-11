@@ -94,7 +94,7 @@ end
 function simulation(sim::HeightSimulator)
     walker = DepthWalker(sim.tree)
     walk(sim.tree, walker)
-    depth = 1+maximum(walker.depth_seq)
+    maximum(walker.depth_seq)
 end
 
 show(io::IO, sim::HeightSimulator) = printfmt(io, "height simulation of {}", sim.tree)

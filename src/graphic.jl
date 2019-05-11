@@ -27,6 +27,11 @@ function drawtree(tree_digraph::FixedGraph, show_label=false)
     digraph
 end
 
+function drawtree(deg_seq::Vector{Int}, show_label=false)
+    tree_digraph = treegraph(deg_seq)
+    drawtree(tree_digraph , show_label)
+end
+
 function drawtree(tree::FiniteTree, show_label=false)
     tree_digraph = treegraph(tree)
     drawtree(tree_digraph , show_label)
