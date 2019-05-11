@@ -100,23 +100,23 @@ See [`example.ipynb`](https://nbviewer.jupyter.org/github/newptcai/RandomTree.jl
 
 Change folder to the `src` directory and run
 ```
-julia gwsim.jl -l 5 -n 10000 -t Cayley height
+julia randtree.jl -l 5 -n 10000 -t Cayley height
 ```
 will generate 10000 Cayley trees of size 10^5 and print out their heights.
 Run
 ```
-julia gwsim.jl --help
+julia randtree.jl --help
 ```
 to see the other options.
 
 Note that the simulations can made parallel. For example
 ```
-julia -p 4 gwsim.jl -l 5 -n 10000 -t Cayley height
+julia -p 4 randtree.jl -l 5 -n 10000 -t Cayley height
 ```
 will start 4 local processes on your machine to run the simulation.
 You can also run simulations across several nodes of a cluster by using
 ```
-julia --machine-file machines.txt gwsim.jl -l 5 -n 10000 -t Cayley height
+julia --machine-file machines.txt randtree.jl -l 5 -n 10000 -t Cayley height
 ```
 where `machines.txt` contains the information of finding other machines.
 See Julia's [documentats](https://docs.julialang.org/en/v1/manual/getting-started/) for details.
