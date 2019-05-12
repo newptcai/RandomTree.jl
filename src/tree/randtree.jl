@@ -168,18 +168,18 @@ function treegraph(degseq::Vector{Int})
     walker.tree_digraph
 end
 
-### RandomdRecursiveTree
+### RandomRecursiveTree
 
-struct RandomdRecursiveTree <: FiniteRandomTree
+struct RandomRecursiveTree <: FiniteRandomTree
     spec::TreeSpec
 end
-RandomdRecursiveTree(size::Int) = RandomdRecursiveTree(TreeSpec(size, "Random Recursive Tree"))
+RandomRecursiveTree(size::Int) = RandomRecursiveTree(TreeSpec(size, "Random Recursive Tree"))
 
-function degrees(tree::RandomdRecursiveTree)
+function degrees(tree::RandomRecursiveTree)
     return treegraph(tree)
 end
 
-function treegraph(tree::RandomdRecursiveTree)::FixedTreeGraph
+function treegraph(tree::RandomRecursiveTree)::FixedTreeGraph
     treesize = size(tree)
     graph = FixedTreeGraph(treesize)
 

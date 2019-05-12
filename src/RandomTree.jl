@@ -18,7 +18,7 @@ export
     DAryTree, 
     MotzkinTree, 
     ## Other random trees
-    RandomdRecursiveTree,
+    RandomRecursiveTree,
     ## Fixed trees
     FullDAryTree,
 

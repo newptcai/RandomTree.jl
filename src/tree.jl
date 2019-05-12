@@ -25,7 +25,7 @@ TREE_DICT = Dict("Cayley" => CayleyTree,
                  "Catalan" => CatalanTree, 
                  "DAry" => DAryTree,
                  "Motzkin" => MotzkinTree,
-                 "RRT" => RandomdRecursiveTree,
+                 "RRT" => RandomRecursiveTree,
                  "FullDAry" => FullDAryTree,
                 )
 
