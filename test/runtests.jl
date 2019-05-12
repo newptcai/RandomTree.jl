@@ -109,7 +109,7 @@ end
     @testset "DepthWalker" begin
         walker = DepthWalker(tree)
         @test walk(tree, walker) == [2, 1, 1, 0, 0]
-        @test walker.depth_seq ==  [0, 1, 2, 3, 1]
+        @test result(walker) ==  [0, 1, 2, 3, 1]
         
         testseq= [ 
                     [[1, 2, 1, 0, 0], [0, 1, 2, 3, 2]], 
@@ -120,14 +120,14 @@ end
         for (degseq, depth_seq) in testseq
             walker = DepthWalker(tree)
             @test degseq == walk(degseq, walker)
-            @test walker.depth_seq == depth_seq
+            @test result(walker) == depth_seq
         end
     end
 
     @testset "SubtreeSizeWalker" begin
         walker = SubtreeSizeWalker(tree)
         @test walk(tree, walker) == [2, 1, 1, 0, 0]
-        @test walker.subtree_size_seq ==  [5, 3, 2, 1, 1]
+        @test result(walker) ==  [5, 3, 2, 1, 1]
         
         testseq= [ 
                     [[1, 2, 1, 0, 0], [5, 4, 2, 1, 1]], 
@@ -138,7 +138,7 @@ end
         for (degseq, subtree_size_seq) in testseq
             walker = SubtreeSizeWalker(tree)
             @test degseq == walk(degseq, walker)
-            @test walker.subtree_size_seq == subtree_size_seq
+            @test result(walker) == subtree_size_seq
         end
     end
 
@@ -151,7 +151,7 @@ end
             walker = GraphWalker(tree)
             @test size(walker.tree_digraph) == size(tree)
             @test degseq == walk(degseq, walker)
-            @test RandomTree.edges(walker.tree_digraph) == ret_edges
+            @test RandomTree.edges(result(walker)) == ret_edges
         end
     end
 end

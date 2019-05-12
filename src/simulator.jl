@@ -37,7 +37,7 @@ end
 function simulation(sim::KcutSimulator)
     walker = KcutWalker(sim.k)
     walk(sim.tree, walker)
-    walker.record_num
+    result(walker)
 end
 
 show(io::IO, sim::KcutSimulator) = printfmt(io, "{}-cut simulation on {}", sim.k, sim.tree)
@@ -55,12 +55,13 @@ function simulation(sim::LogProductSimulator)
     # simulate the tree and count subtree sizes
     walker = SubtreeSizeWalker(sim.tree)
     walk(sim.tree, walker)
+    subtree_sizes = result(walker)
 
     # do the log-product computation
     ret = zeros(Float64, sim.power)
     pow_range = Vector(1:sim.power)
     log_size::Float64 = 0
-    for size in walker.subtree_size_seq
+    for size in subtree_sizes
         @fastmath log_size = log(size)
         @fastmath @. ret += log_size^pow_range
     end
@@ -80,7 +81,7 @@ function simulation(sim::TotalPathSimulator)
     walker = SubtreeSizeWalker(sim.tree)
     walk(sim.tree, walker)
 
-    sum(walker.subtree_size_seq[2:end])
+    sum(result(walker)[2:end])
 end
 
 show(io::IO, sim::TotalPathSimulator) = printfmt(io, "total path length simulation of {}", sim.tree)
@@ -94,7 +95,7 @@ end
 function simulation(sim::HeightSimulator)
     walker = DepthWalker(sim.tree)
     walk(sim.tree, walker)
-    maximum(walker.depth_seq)
+    maximum(result(walker))
 end
 
 show(io::IO, sim::HeightSimulator) = printfmt(io, "height simulation of {}", sim.tree)

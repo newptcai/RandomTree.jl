@@ -49,8 +49,9 @@ export
     SubtreeSizeWalker,
     GraphWalker,
 
-    # Tree traversing functions
+    # Functions applicable to AbstractTreeWalker
     walk,
+    result,
 
     # Simulations
     AbstractSimulator,

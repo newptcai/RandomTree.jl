@@ -8,6 +8,10 @@ end
 function visitsecond(walker::AbstractTreeWalker, degree_sequence, node_index, parent_index)
 end
 
+function result(walker::AbstractTreeWalker)
+    error("Please implement this function")
+end
+
 # DFS walk
 
 function walk(degree_sequence, walker::AbstractTreeWalker, first_only=false::Bool)
@@ -65,6 +69,8 @@ end
 
 DepthWalker(tree::FiniteTree) = DepthWalker(zeros(size(tree)))
 
+result(walker::DepthWalker) = walker.depth_seq
+
 function visitfirst(walker::DepthWalker, degree_sequence, node_index, parent_index)
     if (node_index > 1)
         walker.depth_seq[node_index] = walker.depth_seq[parent_index] + 1
@@ -78,6 +84,8 @@ struct SubtreeSizeWalker <: DFSWalker
 end
 
 SubtreeSizeWalker(tree::FiniteTree) = SubtreeSizeWalker(ones(size(tree)))
+
+result(walker::SubtreeSizeWalker) = walker.subtree_size_seq
 
 function visitsecond(walker::SubtreeSizeWalker, degree_sequence, node_index, parent_index)
     if parent_index >= 1
@@ -93,6 +101,8 @@ mutable struct KcutWalker <: FirstOnlyDFSWalker
     record::Float64
 end
 KcutWalker(k::Integer) = KcutWalker(k, zeros(Int, k), Inf)
+
+result(walker::KcutWalker) = walker.record_num
 
 function visitfirst(walker::KcutWalker, degree_sequence, node_index, parent_index)
     t::Float64 = 0.0
@@ -111,6 +121,8 @@ end
 mutable struct GraphWalker <: FirstOnlyDFSWalker
     tree_digraph::FixedTreeGraph
 end
+
+result(walker::GraphWalker) = walker.tree_digraph
 
 GraphWalker(size::Int) = GraphWalker(FixedTreeGraph(size, []))
 GraphWalker(tree::FiniteTree) = GraphWalker(size(tree))
