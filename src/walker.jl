@@ -124,11 +124,11 @@ end
 
 result(walker::GraphWalker) = walker.tree_digraph
 
-GraphWalker(size::Int) = GraphWalker(FixedTreeGraph(size, []))
+GraphWalker(size::Int) = GraphWalker(FixedTreeGraph(size))
 GraphWalker(tree::FiniteTree) = GraphWalker(size(tree))
 
 function visitfirst(walker::GraphWalker, degree_sequence, node_index, parent_index)
     if parent_index >= 1
-        push!(edges(walker.tree_digraph), (parent_index, node_index))
+        addedge(walker.tree_digraph, parent_index, node_index)
     end
 end

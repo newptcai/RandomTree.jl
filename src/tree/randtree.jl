@@ -185,7 +185,7 @@ function treegraph(tree::RandomRecursiveTree)::FixedTreeGraph
 
     for current_node in 2:treesize
         parent_node = rand(1:current_node-1)
-        push!(graph.edges, (parent_node, current_node))
+        addedge(graph.edges, parent_node, current_node)
     end
 
     graph

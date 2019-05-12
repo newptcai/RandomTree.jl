@@ -7,23 +7,31 @@ size(graph::FixedGraph) = graph.size
 edges(graph::FixedGraph) = graph.edges
 nodes(graph::FixedGraph) = 1:graph.size
 
-struct FixedTreeGraph <: FixedDirectedGraph
+mutable struct FixedTreeGraph <: FixedDirectedGraph
     size::Int
-    edges::Array{Tuple{Int, Int}}
+    edges::Array{Int, 2}
+    edge_num::Int
 end
 
-FixedTreeGraph(size::Int) = FixedTreeGraph(size, Array{Tuple{Int, Int}}([]))
+FixedTreeGraph(size::Int) = FixedTreeGraph(size, Array{Int}(undef, (size-1, 2)), 0)
+
+function addedge(tree::FixedGraph, from, to)
+    tree.edge_num += 1
+    tree.edges[tree.edge_num, :] = [from, to]
+end
 
 function positions(graph::FixedTreeGraph)
     # Sort the edges by starting node
-    sort!(graph.edges, by=x->x[1])
+    sort!(graph.edges, dims=1, by=x->x[1])
+
+    println(graph.edges)
   
     # The first number indicates where the segment belonging to a node starts.
     # The second number is how many edges this node has.
     position_arr = zeros(Int, (size(graph),2))
     current_node = 0
-    for i in 1:length(graph.edges)
-        u, v = graph.edges[i]
+    for i in 1:(size(graph)-1)
+        u, v = graph.edges[i, :]
         if u!= current_node
             current_node = u
             position_arr[current_node,1]=i
@@ -33,13 +41,45 @@ function positions(graph::FixedTreeGraph)
     position_arr
 end
 
+#function positions(graph::FixedTreeGraph)
+#    # First we do the counting
+#    println("new");
+#
+#    vertex_count = zeros(Int, size(graph))
+#
+#    edge_array = edges(graph)
+#
+#    # Count the number of edges
+#    for edge in edge_array:
+#        vertex_count[edge[1]] += 1
+#    end
+#
+#    # Transform to cumulative sum
+#    for node in 2:size(graph)
+#        vertex_count[node] += vertex_count[node-1]
+#    end
+#
+#    # copy edges to the right position
+#    edge_sorted = Vector{Union{Nonthing, Tuple{Int, Int}}}(nothing, size(tree))
+#    for edge in edge_array:
+#        from = edge[1]
+#        position = vertex_count[from]
+#        edge_sorted[position] = edge
+#        vertex_count[from] -= 1
+#    end
+#
+#    # copy it back
+#end
+
 function iterate(tree::FixedTreeGraph)
     position_array = positions(tree)
 
     root_degree = position_array[1, 2]
 
     stack = Stack{Tuple{Int, Int}}()
-    push!(stack, (1, 0))
+    if root_degree > 0
+        push!(stack, (1, 0))
+    end
 
     return (root_degree, (position_array, stack))
 end
