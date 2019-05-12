@@ -94,7 +94,7 @@ function iterate(tree::FixedTreeGraph, state)
     parent_node, child_visited = pop!(stack)
 
 
-    next_edge = edges(tree)[position_array[parent_node]+child_visited]
+    next_edge = edges(tree)[position_array[parent_node]+child_visited, :]
     next_node = next_edge[2]
 
     # Do we need to put parent back to the stack?
