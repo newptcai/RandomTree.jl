@@ -38,10 +38,10 @@ Start [Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/index.html) and 
 ```
 Type
 ```julia
-(v1.1) pkg> add https://github.com/newptcai/RandomTree.jl
+(v1.1) pkg> dev https://github.com/newptcai/RandomTree.jl
 ```
 should add `RandomTree.jl` to your default Julia environment. Then you can just use it as any other
-Julia package.
+Julia package. You can also find the source code of the package at `~/.julia/dev/RandomTree`.
 
 ## Usage
 
@@ -102,7 +102,7 @@ See [`example.ipynb`](https://nbviewer.jupyter.org/github/newptcai/RandomTree.jl
 
 ### Use `RandomTree.jl` as a script
 
-Change folder to the `src` directory and run
+In a terminal, change folder to the `~/.julia/dev/RandomTree/src` and run the command
 ```
 julia simtree.jl -l 5 -n 10000 -t Cayley height
 ```
@@ -113,18 +113,17 @@ julia simtree.jl --help
 ```
 to see the other options.
 
-Note that the simulations can made parallel. For example
+The simulations can made parallel. For example
 ```
 julia -p 4 simtree.jl -l 5 -n 10000 -t Cayley height
 ```
-will start 4 local processes on your machine to run the simulation.
+will start 4 local processes on your local machine to run the simulation.
 You can also run simulations across several nodes of a cluster by using
 ```
 julia --machine-file machines.txt simtree.jl -l 5 -n 10000 -t Cayley height
 ```
-where `machines.txt` contains the information of finding other machines.
+where `machines.txt` contains the information for finding remote nodes.
 See Julia's [documentats](https://docs.julialang.org/en/v1/manual/getting-started/) for details.
-
 
 ### Future plan
 
