@@ -1,6 +1,6 @@
 # Introduction
 
-`RandomTree.jl` is a Julia package for simulations on random trees, in particular Conditional
+`RandomTree.jl` is a [Julia](https://julialang.org/) package for simulations on random trees, in particular Conditional
 Galton-Watson trees. It can efficiently generate several types of random trees up to size 10^8,
 including
 
