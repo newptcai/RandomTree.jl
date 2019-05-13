@@ -12,3 +12,7 @@ makedocs(
         "Future Plan" => "plan.md",
     ]
 )
+
+deploydocs(
+    repo = "github.com/newptcai/RandomTree.jl.git",
+)
