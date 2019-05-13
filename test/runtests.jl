@@ -49,10 +49,10 @@ end
         end
     end
 
-    #@testset "RandomRecursiveTree" begin
-    #    tree = RandomRecursiveTree(50)
-    #    treetest(tree)
-    #end
+    @testset "RandomRecursiveTree" begin
+        tree = RandomRecursiveTree(50)
+        treetest(tree)
+    end
     
     @testset "FullDAryTree" begin
         tree = FullDAryTree(5, 1)
