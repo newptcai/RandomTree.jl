@@ -1,7 +1,8 @@
 # RandomTree.jl
 
-`RandomTree.jl` is a Julia package for simulations on random trees. It can efficiently generate
-several types of random trees up to size 10^8, including
+`RandomTree.jl` is a Julia package for simulations on random trees, in particular Conditional
+Galton-Watson trees. It can efficiently generate several types of random trees up to size 10^8,
+including
 
 * [Conditional Galton Watson](https://arxiv.org/abs/1112.0510) tree
     * Cayley
@@ -9,9 +10,9 @@ several types of random trees up to size 10^8, including
     * Catalan
     * DAry
     * Motzkin
-* Random Recursive Trees (This is not as optimized as Galton-Watson trees.)
+* [Random Recursive Trees](https://en.wikipedia.org/wiki/Recursive_tree) (up to size 10^7)
 
-The package has implemented these simulations on trees
+as well as carry out these simulations
 
 * [k-cut](https://arxiv.org/abs/1804.03069)
 * sum of log(subtree sizes) over all fringe subtrees
@@ -21,28 +22,26 @@ The package has implemented these simulations on trees
 
 The package also provides a simply function for drawing trees.
 
-You can use `RandomTree.jl` as a library in your code or in a Jupyter notebook. It can also run as a
-standalone script.
+You can use `RandomTree.jl` as a library in your code, in Julia REPL, or in a Jupyter notebook. It
+can also run as a standalone script.
 
 The generation of conditional Galton-Watson trees uses [a very efficient
 algorithm](https://search.proquest.com/openview/8fe4ed7479bf9d0df48152a6b91e6191/1?cbl=666313&pq-origsite=gscholar)
-by Luc Devroye. Generating trees of size 10^6 takes about 20-30 ms.
+introduced by [Luc Devroye](http://luc.devroye.org). Generating a Galton-Watson tree of 1 million
+nodes takes about 20-30 ms.
 
 ## Installation
 
-The package is still in development and is not in Julia's official registry yet. Thus to use it, just
-clone this repository to your computer. Then change directory to the root of this repository, and
-start Julia REPL. Then enter the package mode by pressing `]`. You should see the prompt
+Start [Julia REPL](https://docs.julialang.org/en/v1/stdlib/REPL/index.html) and enter the package mode by pressing `]`. You should see the prompt
 ```julia
 (v1.1) pkg>
 ```
 Type
 ```julia
-(v1.1) pkg> dev .
+(v1.1) pkg> add https://github.com/newptcai/RandomTree.jl
 ```
 should add `RandomTree.jl` to your default Julia environment. Then you can just use it as any other
 Julia package.
-
 
 ## Usage
 
@@ -68,7 +67,9 @@ julia> degrees(tree)
 Note that since we are simulating a random tree, each time `degrees(tree)` is called, a random
 degree sequence is returned.
 
-To generate 1000 Cayley Trees and record their height, type
+Simulations on random trees usually need to compute a property of trees from its degree sequence.
+Several such simulations has been implemented in `src/simulator.jl`. For example,
+to generate 1000 Cayley Trees and calculate their height, type
 ```
 julia> sim = HeightSimulator(tree)
 height simulation of Cayley Tree of size 5
@@ -127,9 +128,7 @@ See Julia's [documentats](https://docs.julialang.org/en/v1/manual/getting-starte
 
 ### Future plan
 
-The package currently lacks real documents. But the source code should be fairly easy to
-understand. Next step would definitely be adding more documents.
-
-Several random and fixed trees will be added
-* binary search trees
-* preferential attachment
+Several random trees will be added in the future
+* [ ] binary search trees
+* [ ] split trees in general
+* [ ] preferential attachment
