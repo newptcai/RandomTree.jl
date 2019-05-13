@@ -9,7 +9,7 @@ several types of random trees up to size 10^8, including
     * Catalan
     * DAry
     * Motzkin
-* Random Recursive Trees (This is much slower than Galton-Watson trees now)
+* Random Recursive Trees (This is not as optimized as Galton-Watson trees.)
 
 The package has implemented these simulations on trees
 
@@ -131,6 +131,5 @@ The package currently lacks real documents. But the source code should be fairly
 understand. Next step would definitely be adding more documents.
 
 Several random and fixed trees will be added
-* fixed complete d-ary trees
 * binary search trees
 * preferential attachment

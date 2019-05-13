@@ -18,10 +18,6 @@ function addedge!(tree::FixedGraph, from, to)
     push!(edges(tree), (from, to))
 end
 
-#function sortedge!(tree::FixedTreeGraph)
-#    sort!(edges(tree), by=x->x[1])
-#end
-
 function positions(graph::FixedTreeGraph)
     # Sort the edges by starting node
     sortedge!(graph)
@@ -48,21 +44,21 @@ function sortedge!(tree::FixedTreeGraph)
 
     # Count the number of edges
     for edge in edge_array
-        vertex_count[edge[1]] += 1
+        @inbounds vertex_count[edge[1]] += 1
     end
 
     # Transform to cumulative sum
     for node in 2:size(tree)
-        vertex_count[node] += vertex_count[node-1]
+        @inbounds vertex_count[node] += vertex_count[node-1]
     end
 
     # copy edges to the right position
     edge_sorted = Vector{Tuple{Int, Int}}(undef, length(edge_array))
     for edge in edge_array
-        from = edge[1]
-        position = vertex_count[from]
-        edge_sorted[position] = edge
-        vertex_count[from] -= 1
+        @inbounds from = edge[1]
+        @inbounds position = vertex_count[from]
+        @inbounds edge_sorted[position] = edge
+        @inbounds vertex_count[from] -= 1
     end
 
     tree.edges = edge_sorted
@@ -91,18 +87,18 @@ function iterate(tree::FixedTreeGraph, state)
     parent_node, child_visited = pop!(stack)
 
 
-    next_edge = edges(tree)[position_array[parent_node]+child_visited]
-    next_node = next_edge[2]
+    @inbounds next_edge = edges(tree)[position_array[parent_node]+child_visited]
+    @inbounds next_node = next_edge[2]
 
     # Do we need to put parent back to the stack?
-    parent_degree = position_array[parent_node, 2]
+    @inbounds parent_degree = position_array[parent_node, 2]
     child_visited += 1
     if child_visited < parent_degree
         push!(stack, (parent_node, child_visited))
     end
 
     # Put the new node in the stack
-    current_degree = position_array[next_node, 2]
+    @inbounds current_degree = position_array[next_node, 2]
     if current_degree >= 1
         push!(stack, (next_node, 0))
     end
