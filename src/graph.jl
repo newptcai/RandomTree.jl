@@ -112,20 +112,19 @@ function sortedge!(tree::FixedTreeGraph)
 end
 
 function iterate(tree::FixedTreeGraph)
-    position_array = positions(tree)
-
-    root_degree = position_array[1, 2]
+    root_degree = positions(tree)[1, 2]
 
     stack = Stack{Tuple{Int, Int}}()
     if root_degree > 0
         push!(stack, (1, 0))
     end
 
-    return (root_degree, (position_array, stack))
+    return (root_degree, stack)
 end
 
-function iterate(tree::FixedTreeGraph, state)
-    position_array, stack = state
+function iterate(tree::FixedTreeGraph, stack)
+    stack
+    position_array = positions(tree)
 
     if isempty(stack)
         return nothing
@@ -150,7 +149,7 @@ function iterate(tree::FixedTreeGraph, state)
         push!(stack, (next_node, 0))
     end
 
-    return (current_degree, (position_array, stack))
+    return (current_degree, stack)
 end
 
 degrees(tree::FixedTreeGraph) = tree
