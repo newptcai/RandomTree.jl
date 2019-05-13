@@ -10,7 +10,7 @@ abstract type FiniteFixedTree <: FiniteTree end
 abstract type CondGWTree <: FiniteRandomTree end
 
 """
-    size(graph::FiniteTree)
+    size(t::FiniteTree)
 
 Return the size of the tree `t`
 """

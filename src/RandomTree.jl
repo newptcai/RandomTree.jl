@@ -1,5 +1,5 @@
 """
-A Julia package for simulating random trees.
+A Julia package for simulations on random trees.
 """
 module RandomTree
 

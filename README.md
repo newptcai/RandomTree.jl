@@ -125,7 +125,7 @@ julia --machine-file machines.txt simtree.jl -l 5 -n 10000 -t Cayley height
 where `machines.txt` contains the information for finding remote nodes.
 See Julia's [documentats](https://docs.julialang.org/en/v1/manual/getting-started/) for details.
 
-### Future plan
+## Future plan
 
 Several random trees will be added in the future
 * [ ] binary search trees
