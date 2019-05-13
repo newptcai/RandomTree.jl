@@ -245,7 +245,7 @@ end
     position_array = RandomTree.positions(tgraph)
 
     @test position_array == [1 2; 3 1; 4 1; 5 1; 0 0; 0 0]
-    @test collect(degrees(tgraph)) == [2, 0, 1, 1, 1, 0]
+    @test collect(degrees(tgraph)) == [2, 1, 1, 1, 0, 0]
 end
 end
 

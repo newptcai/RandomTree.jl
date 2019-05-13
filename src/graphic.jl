@@ -1,3 +1,12 @@
+"Draw a grpahic representaion of a tree using [graphivz](http://www.graphviz.org/) and its [Python
+Interface](https://github.com/xflr6/graphviz)"
+function drawtree end
+
+"""
+    drawtree(tree_digraph::FixedGraph, show_label=false)
+
+Draw a graphic representation of `tree_digraph`
+"""
 function drawtree(tree_digraph::FixedGraph, show_label=false)
     graphviz = pyimport("graphviz")
     digraph = graphviz.Graph()
@@ -27,11 +36,21 @@ function drawtree(tree_digraph::FixedGraph, show_label=false)
     digraph
 end
 
+"""
+    drawtree(deg_seq::Vector{Int}, show_label=false)
+
+Draw a graphic representation of tree with DFS degree sequence `deg_seq`
+"""
 function drawtree(deg_seq::Vector{Int}, show_label=false)
     tree_digraph = treegraph(deg_seq)
     drawtree(tree_digraph , show_label)
 end
 
+"""
+    drawtree(tree::FiniteTree, show_label=false)
+
+Draw a graphic representation of the random/fixed tree `tree`.
+"""
 function drawtree(tree::FiniteTree, show_label=false)
     tree_digraph = treegraph(tree)
     drawtree(tree_digraph , show_label)

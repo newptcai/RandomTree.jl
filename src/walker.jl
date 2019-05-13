@@ -1,13 +1,43 @@
 abstract type AbstractTreeWalker end
+
+"""
+A `DFSWalker` does DFS walk on a tree to compute some property of the tree.  It should implement at least
+one of the two functions.
+
+    visitfirst(walker::AbstractTreeWalker, degree_sequence, node_index, parent_index)
+    visitsecond(walker::AbstractTreeWalker, degree_sequence, node_index, parent_index)
+
+The first is called when the DFS walk first enters a node. The second is call when the walk finally
+leaves the node.
+"""
 abstract type DFSWalker <: AbstractTreeWalker end
+
+"""
+A DFS walker that only needed to be called when the walk enters a node.
+"""
 abstract type FirstOnlyDFSWalker <: DFSWalker end
 
+"""
+    visitfirst(walker::AbstractTreeWalker, degree_sequence, node_index, parent_index)
+
+The function is called when the `walker` first enters a node.
+"""
 function visitfirst(walker::AbstractTreeWalker, degree_sequence, node_index, parent_index)
 end
 
+"""
+    visitsecond(walker::AbstractTreeWalker, degree_sequence, node_index, parent_index)
+
+The function is called when the `walker` finally leaves a node.
+"""
 function visitsecond(walker::AbstractTreeWalker, degree_sequence, node_index, parent_index)
 end
 
+"""
+    result(walker::AbstractTreeWalker)
+
+Return of the result of the walk on the tree.
+"""
 function result(walker::AbstractTreeWalker)
     error("Please implement this function")
 end
@@ -56,13 +86,18 @@ function walk(tree::FiniteTree, walker::FirstOnlyDFSWalker)
     walk(degree_sequence, walker, true)
 end
 
+"""
+    walk(tree::FiniteTree, walker::DFSWalker)
+
+Make `walker` do a DFS walk on `tree`.
+"""
 function walk(tree::FiniteTree, walker::DFSWalker)
     degree_sequence = degrees(tree)
     walk(degree_sequence, walker)
 end
 
 # DepthWalker
-
+"A walker computes the depths of all nodes in a tree."
 struct DepthWalker <: FirstOnlyDFSWalker
     depth_seq::Vector{Int}
 end
@@ -79,6 +114,7 @@ end
 
 # SubtreeSizeWalker
 
+"A walker computes the size of all subtrees of a tree."
 struct SubtreeSizeWalker <: DFSWalker
     subtree_size_seq::Vector{Int}
 end
@@ -95,11 +131,17 @@ end
 
 # KcutWalker 
 
+"A walker computes the (random) k-cut number of a tree."
 mutable struct KcutWalker <: FirstOnlyDFSWalker
     k::Int
     record_num::Vector{Int}
     record::Float64
 end
+"""
+    KcutWalker(k::Integer)
+
+Construct a `KcutWalker` to compute the `k`-cut number of a tree.
+"""
 KcutWalker(k::Integer) = KcutWalker(k, zeros(Int, k), Inf)
 
 result(walker::KcutWalker) = walker.record_num
@@ -118,6 +160,8 @@ function visitfirst(walker::KcutWalker, degree_sequence, node_index, parent_inde
 end
 
 # GraphWalker
+
+"A walker that converts a tree represented in DFS degree sequence to a `FixedTreeGraph`."
 mutable struct GraphWalker <: FirstOnlyDFSWalker
     tree_digraph::FixedTreeGraph
 end

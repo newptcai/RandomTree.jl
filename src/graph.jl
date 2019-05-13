@@ -1,42 +1,89 @@
 # DirectedGraph
 
+"Representing a fixed graph with edges stored in an array"
 abstract type FixedGraph end
+
+"Representing a fixed directed graph with directed edges stored in an array"
 abstract type FixedDirectedGraph <: FixedGraph end
 
+"""
+    size(graph::FixedGraph)
+
+Return the size of the graph `graph`
+"""
 size(graph::FixedGraph) = graph.size
+
+"Return the array of edges of the graph"
 edges(graph::FixedGraph) = graph.edges
+
+"Return the nodes of the graph as an iterator"
 nodes(graph::FixedGraph) = 1:graph.size
 
+"Representing a fixed tree with directed edges stored in an array"
 mutable struct FixedTreeGraph <: FixedDirectedGraph
     size::Int
     edges::Vector{Tuple{Int, Int}}
+    positions::Union{Array{Int, 2}, Nothing}
 end
 
-FixedTreeGraph(size::Int) = FixedTreeGraph(size, [])
+"""
+    FixedTreeGraph(size::Int)
 
+Construct a `FixedTreeGraph` with no edges of `size`.
+"""
+FixedTreeGraph(size::Int) = FixedTreeGraph(size, [], nothing)
+
+"""
+    FixedTreeGraph(size::Int, edges::Array{Tuple{Int, Int}})
+
+Construct a `FixedTreeGraph` with edges `edges` of size `size`.
+"""
+FixedTreeGraph(size::Int, edges::Array{Tuple{Int, Int}}) = FixedTreeGraph(size, edges, nothing)
+
+"""
+    addedge!(tree::FixedGraph, from, to)
+
+Add an edge  `(from, to)` in `tree`.
+"""
 function addedge!(tree::FixedGraph, from, to)
     push!(edges(tree), (from, to))
 end
 
-function positions(graph::FixedTreeGraph)
+"""
+    positions(tree::FixedTreeGraph)::Array{Int, 2}
+
+First sort the edges in the tree and then return an array containing the position and length of the
+segment in the edge array corresponding to each node.
+"""
+function positions(tree::FixedTreeGraph)::Array{Int, 2}
+    # Do not repeat computing this
+    if tree.positions !== nothing
+        return tree.positions
+    end
+
     # Sort the edges by starting node
-    sortedge!(graph)
+    sortedge!(tree)
 
     # The first number indicates where the segment belonging to a node starts.
     # The second number is how many edges this node has.
-    position_arr = zeros(Int, (size(graph),2))
+    position_arr = zeros(Int, (size(tree),2))
     current_node = 0
-    for i in 1:(size(graph)-1)
-        u, v = graph.edges[i]
+    for i in 1:(size(tree)-1)
+        u, v = tree.edges[i]
         if u!= current_node
             current_node = u
             position_arr[current_node,1]=i
         end
         position_arr[current_node, 2]+=1
     end
-    position_arr
+    tree.positions = position_arr
 end
 
+"""
+    sortedge!(tree::FixedTreeGraph)
+
+Sort the edges in `tree` according to starting nodes.
+"""
 function sortedge!(tree::FixedTreeGraph)
     vertex_count = zeros(Int, size(tree))
 

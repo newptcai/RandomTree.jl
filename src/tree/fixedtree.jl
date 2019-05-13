@@ -1,14 +1,24 @@
 ### FixedDAryTree
-#
+
+"""
+A fixed full-d-ary tree, i.e., in a tree each node has either d or 0 children and each level is
+full.
+"""
 struct FullDAryTree <: FiniteFixedTree
     spec::TreeSpec
     height::Int
-    function FullDAryTree(height::Int, d::Int) 
-        if d > 1
-            return new(TreeSpec((d^(height+1)-1)//(d-1), "Full $d-arry tree (height $height)", d), height)
-        else
-            return new(TreeSpec(height+1, "Full $d-arry tree (height $height)", d), height)
-        end
+end
+
+"""
+    FullDAryTree(height::Int, d::Int) 
+
+Construct a `FullDAryTree` of height `height` and maximum degree `d`.
+"""
+function FullDAryTree(height::Int, d::Int) 
+    if d > 1
+        return FullDAryTree(TreeSpec((d^(height+1)-1)//(d-1), "Full $d-arry tree (height $height)", d), height)
+    else
+        return FullDAryTree(TreeSpec(height+1, "Full $d-arry tree (height $height)", d), height)
     end
 end
 

@@ -1,3 +1,6 @@
+"""
+A Julia package for simulating random trees.
+"""
 module RandomTree
 
 using Random, DataStructures, Formatting, ArgParse, Distributions, Distributed, PyCall

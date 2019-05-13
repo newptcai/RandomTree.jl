@@ -1,10 +1,6 @@
+"Entry point of command line script"
 function main()
     parsed_args = parse_commandline()
-
-    #println("Parsed args:")
-    #for (arg,val) in parsed_args
-    #    printfmtln("  {}  =>  {}", arg, val)
-    #end
 
     seed = parsed_args["seed"]
     if  seed != nothing
