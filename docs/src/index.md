@@ -29,4 +29,3 @@ The generation of conditional Galton-Watson trees uses [a very efficient
 algorithm](https://search.proquest.com/openview/8fe4ed7479bf9d0df48152a6b91e6191/1?cbl=666313&pq-origsite=gscholar)
 introduced by [Luc Devroye](http://luc.devroye.org). Generating a Galton-Watson tree of 1 million
 nodes takes about 20-30 ms.
-
