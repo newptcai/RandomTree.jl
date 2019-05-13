@@ -39,6 +39,8 @@ export
     positions,
     edges,
     nodes,
+    sortedge!,
+    addedge!,
 
     # Tree walkers
     AbstractTreeWalker,

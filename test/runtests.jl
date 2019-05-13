@@ -144,8 +144,8 @@ end
 
     @testset "GraphWalker" begin
         testseq= [ 
-                    [[1, 1, 2, 0, 0], [1 2; 2 3; 3 4; 3 5]], 
-                    [[2, 1, 1, 0, 0], [1 2; 2 3; 3 4; 1 5]],
+                    [[1, 1, 2, 0, 0], [(1, 2), (2, 3), (3, 4), (3, 5)]], 
+                    [[2, 1, 1, 0, 0], [(1, 2), (2, 3), (3, 4), (1, 5)]],
                     ]
         for (degseq, ret_edges) in testseq
             walker = GraphWalker(tree)
@@ -236,7 +236,12 @@ end
 end
 
 @testset "FixedGraph" begin
-    tgraph = RandomTree.FixedTreeGraph(6, [[1 2]; [2 3]; [3 4]; [1 5]; [4 6]], 0)
+    tgraph = RandomTree.FixedTreeGraph(6, [(1, 2); (2, 3); (3, 4); (1, 5); (4, 6)])
+    
+    sortedge!(tgraph)
+    @test edges(tgraph) == [(1, 2); (1, 5); (2, 3); (3, 4); (4, 6)]
+
+
     position_array = RandomTree.positions(tgraph)
 
     @test position_array == [1 2; 3 1; 4 1; 5 1; 0 0; 0 0]

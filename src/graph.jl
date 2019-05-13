@@ -7,31 +7,31 @@ size(graph::FixedGraph) = graph.size
 edges(graph::FixedGraph) = graph.edges
 nodes(graph::FixedGraph) = 1:graph.size
 
-mutable struct FixedTreeGraph <: FixedDirectedGraph
+struct FixedTreeGraph <: FixedDirectedGraph
     size::Int
-    edges::Array{Int, 2}
-    edge_num::Int
+    edges::Vector{Tuple{Int, Int}}
 end
 
-FixedTreeGraph(size::Int) = FixedTreeGraph(size, Array{Int}(undef, (size-1, 2)), 0)
+FixedTreeGraph(size::Int) = FixedTreeGraph(size, [])
 
-function addedge(tree::FixedGraph, from, to)
-    tree.edge_num += 1
-    tree.edges[tree.edge_num, :] = [from, to]
+function addedge!(tree::FixedGraph, from, to)
+    push!(edges(tree), (from, to))
+end
+
+function sortedge!(tree::FixedTreeGraph)
+    sort!(edges(tree), by=x->x[1])
 end
 
 function positions(graph::FixedTreeGraph)
     # Sort the edges by starting node
-    sort!(graph.edges, dims=1, by=x->x[1])
+    sortedge!(graph)
 
-    println(graph.edges)
-  
     # The first number indicates where the segment belonging to a node starts.
     # The second number is how many edges this node has.
     position_arr = zeros(Int, (size(graph),2))
     current_node = 0
     for i in 1:(size(graph)-1)
-        u, v = graph.edges[i, :]
+        u, v = graph.edges[i]
         if u!= current_node
             current_node = u
             position_arr[current_node,1]=i
@@ -94,7 +94,7 @@ function iterate(tree::FixedTreeGraph, state)
     parent_node, child_visited = pop!(stack)
 
 
-    next_edge = edges(tree)[position_array[parent_node]+child_visited, :]
+    next_edge = edges(tree)[position_array[parent_node]+child_visited]
     next_node = next_edge[2]
 
     # Do we need to put parent back to the stack?

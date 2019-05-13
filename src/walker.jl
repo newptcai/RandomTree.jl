@@ -129,6 +129,6 @@ GraphWalker(tree::FiniteTree) = GraphWalker(size(tree))
 
 function visitfirst(walker::GraphWalker, degree_sequence, node_index, parent_index)
     if parent_index >= 1
-        addedge(walker.tree_digraph, parent_index, node_index)
+        addedge!(walker.tree_digraph, parent_index, node_index)
     end
 end
