@@ -68,13 +68,6 @@ struct LogProductSimulator <: AbstractSimulator
 end
 
 """
-    LogProductSimulator(tree, power)
-
-Construct a `LogProductSimulator` that simulate the sum of log(subtree size)^`power` of trees.
-"""
-function LogProductSimulator end
-
-"""
     LogProductSimulator(tree)
 
 Construct a `LogProductSimulator` that simulate the sum of log(subtree size) of trees.

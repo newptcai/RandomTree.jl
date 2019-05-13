@@ -1,5 +1,9 @@
 # RandomTree.jl
 
+[![Travis status](https://travis-ci.org/newptcai/RandomTree.jl.svg?branch=master)](https://travis-ci.org/newptcai/RandomTree.jl)
+[![](https://img.shields.io/badge/docs-latest-blue.svg)](https://newptcai.github.io/RandomTree.jl/latest/)
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://newptcai.github.io/RandomTree.jl/stable/)
+
 `RandomTree.jl` is a Julia package for simulations on random trees, in particular Conditional
 Galton-Watson trees. It can efficiently generate several types of random trees up to size 10^8,
 including
