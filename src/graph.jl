@@ -7,7 +7,7 @@ size(graph::FixedGraph) = graph.size
 edges(graph::FixedGraph) = graph.edges
 nodes(graph::FixedGraph) = 1:graph.size
 
-struct FixedTreeGraph <: FixedDirectedGraph
+mutable struct FixedTreeGraph <: FixedDirectedGraph
     size::Int
     edges::Vector{Tuple{Int, Int}}
 end
@@ -18,9 +18,9 @@ function addedge!(tree::FixedGraph, from, to)
     push!(edges(tree), (from, to))
 end
 
-function sortedge!(tree::FixedTreeGraph)
-    sort!(edges(tree), by=x->x[1])
-end
+#function sortedge!(tree::FixedTreeGraph)
+#    sort!(edges(tree), by=x->x[1])
+#end
 
 function positions(graph::FixedTreeGraph)
     # Sort the edges by starting node
@@ -41,35 +41,32 @@ function positions(graph::FixedTreeGraph)
     position_arr
 end
 
-#function positions(graph::FixedTreeGraph)
-#    # First we do the counting
-#    println("new");
-#
-#    vertex_count = zeros(Int, size(graph))
-#
-#    edge_array = edges(graph)
-#
-#    # Count the number of edges
-#    for edge in edge_array:
-#        vertex_count[edge[1]] += 1
-#    end
-#
-#    # Transform to cumulative sum
-#    for node in 2:size(graph)
-#        vertex_count[node] += vertex_count[node-1]
-#    end
-#
-#    # copy edges to the right position
-#    edge_sorted = Vector{Union{Nonthing, Tuple{Int, Int}}}(nothing, size(tree))
-#    for edge in edge_array:
-#        from = edge[1]
-#        position = vertex_count[from]
-#        edge_sorted[position] = edge
-#        vertex_count[from] -= 1
-#    end
-#
-#    # copy it back
-#end
+function sortedge!(tree::FixedTreeGraph)
+    vertex_count = zeros(Int, size(tree))
+
+    edge_array = edges(tree)
+
+    # Count the number of edges
+    for edge in edge_array
+        vertex_count[edge[1]] += 1
+    end
+
+    # Transform to cumulative sum
+    for node in 2:size(tree)
+        vertex_count[node] += vertex_count[node-1]
+    end
+
+    # copy edges to the right position
+    edge_sorted = Vector{Tuple{Int, Int}}(undef, length(edge_array))
+    for edge in edge_array
+        from = edge[1]
+        position = vertex_count[from]
+        edge_sorted[position] = edge
+        vertex_count[from] -= 1
+    end
+
+    tree.edges = edge_sorted
+end
 
 function iterate(tree::FixedTreeGraph)
     position_array = positions(tree)
