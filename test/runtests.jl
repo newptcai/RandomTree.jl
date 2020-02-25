@@ -201,6 +201,25 @@ end
         end
     end
 
+    @testset "SizePowerSimulator" begin
+        sim = SizePowerSimulator(BinaryTree(5))
+        @test simulation(sim) ≈ sqrt(5)+sqrt(3)+3
+
+        for tree = trees
+            for pow = 1:3
+                sim = SizePowerSimulator(tree, pow)
+
+                @test repr(sim) != ""
+
+                @test sim.tree === tree
+
+                ret = simulation(sim)
+                @test ret isa Real
+                @test ret > SIZE^pow
+            end
+        end
+    end
+
     @testset "HeightSimulator" begin
         for tree = trees
             sim = HeightSimulator(tree)

@@ -61,6 +61,7 @@ export
     # Simulations
     AbstractSimulator,
     KcutSimulator,
+    SizePowerSimulator,
     LogProductSimulator,
     HeightSimulator,
     TotalPathSimulator,
