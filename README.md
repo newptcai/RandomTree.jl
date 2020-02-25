@@ -55,7 +55,7 @@ In Julia REPL, load `RandomTree.jl` by
 ```julia
 julia> using RandomTree
 ```
-To get the degree sequence of a Cayley tree of size 5 in depth-search-first order, type
+To get the degree sequence of a (random) Cayley tree of size 5 in depth-search-first order, type
 ```julia
 julia> tree = CayleyTree(5)
 Cayley Tree of size 5

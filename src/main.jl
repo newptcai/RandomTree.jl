@@ -32,7 +32,7 @@ function main()
         sim = HeightSimulator(tree_ins)
     elseif parsed_args["%COMMAND%"] == "total-path"
         sim = TotalPathSimulator(tree_ins)
-    elseif parsed_args["%COMMAND%"] == "Leaf"
+    elseif parsed_args["%COMMAND%"] == "leaf"
         sim = LeafSimulator(tree_ins)
     end
 
