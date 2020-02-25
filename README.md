@@ -27,7 +27,7 @@ as well as carry out these simulations
 The package also provides a simply function for drawing trees.
 
 You can use `RandomTree.jl` as a library in your code, in Julia REPL, or in a Jupyter notebook. It
-can also run as a standalone script.
+can also run as a stand-alone script.
 
 The generation of conditional Galton-Watson trees uses [a very efficient
 algorithm](https://search.proquest.com/openview/8fe4ed7479bf9d0df48152a6b91e6191/1?cbl=666313&pq-origsite=gscholar)
@@ -92,7 +92,7 @@ See [`example.ipynb`](https://nbviewer.jupyter.org/github/newptcai/RandomTree.jl
 
 ### Use `RandomTree.jl` as a script
 
-In a terminal, change folder to the `~/.julia/dev/RandomTree/src` and run the command
+In a terminal, change directory to the `~/.julia/dev/RandomTree/src` and run the command
 ```
 julia simtree.jl -l 5 -n 10000 -t Cayley height
 ```
