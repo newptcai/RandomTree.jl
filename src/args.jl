@@ -2,7 +2,7 @@
 function parse_commandline()
     setting = ArgParseSettings()
 
-    @add_arg_table setting begin
+    @add_arg_table! setting begin
         "--size", "-s"
             dest_name="size"
             help="size of the Cayley tree"
@@ -52,7 +52,7 @@ function parse_commandline()
             help="simulation of the total path length"
     end
 
-    @add_arg_table setting["kcut"] begin
+    @add_arg_table! setting["kcut"] begin
         "-k" 
             dest_name="k"
             help="k-records"
@@ -65,7 +65,7 @@ function parse_commandline()
             default=0
     end
 
-    @add_arg_table setting["log-prod"] begin
+    @add_arg_table! setting["log-prod"] begin
         "--pow", "-p" 
             dest_name="pow"
             help="log(subtree size)^pow"
