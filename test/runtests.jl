@@ -182,22 +182,21 @@ end
     end
 
     @testset "LogProductSimulator" begin
+        # For binary tree of size 5, this is always log(15)
+        sim = LogProductSimulator(BinaryTree(5))
+        @test simulation(sim) ≈ log(5)+log(3)
+
         for tree = trees
-            pow = 3
-            sim = LogProductSimulator(tree, pow)
+            for pow = 1:3
+                sim = LogProductSimulator(tree, pow)
 
-            @test repr(sim) != ""
+                @test repr(sim) != ""
 
-            @test sim.tree === tree
-            @test sim.power == pow
+                @test sim.tree === tree
 
-            ret = simulation(sim)
-            @test length(ret) == 3
-            @test all(x->x>0 && x isa Real, ret)
-
-            for ret = simulation(sim, 20)
-                @test length(ret) == 3
-                @test all(x->x>0 && x isa Real, ret)
+                ret = simulation(sim)
+                @test ret isa Real
+                @test ret > log(SIZE)^pow
             end
         end
     end

@@ -57,47 +57,81 @@ end
 
 show(io::IO, sim::KcutSimulator) = printfmt(io, "{}-cut simulation on {}", sim.k, sim.tree)
 
-# LogProductSimulator
+# SubtreeSizeSimulator
 
 """
-Simulation of the sum of log(subtree size)^`power` of trees.
+Simulation of the additive function in the form of sum of func(subtree size) applied to random trees.
 """
-struct LogProductSimulator <: AbstractSimulator
+struct SubtreeSizeSimulator{F<:Function} <: AbstractSimulator
     tree::FiniteTree
-    power::Int
+    func::F
+    funcname::String
 end
 
 """
-    LogProductSimulator(tree)
-
-Construct a `LogProductSimulator` that simulate the sum of log(subtree size) of trees.
-"""
-LogProductSimulator(tree) = LogProductSimulator(tree, 1)
-
-"""
-    simulation(sim::AbstractSimulator)
+    simulation(sim::SubtreeSizeSimulator)
 
 Return one sample in simulation `sim`.
 """
-function simulation(sim::LogProductSimulator)
-    # simulate the tree and count subtree sizes
+function simulation(sim::SubtreeSizeSimulator)
+    # simulate the random tree and get subtree sizes
     walker = SubtreeSizeWalker(sim.tree)
     walk(sim.tree, walker)
     subtree_sizes = result(walker)
 
-    # do the log-product computation
-    ret = zeros(Float64, sim.power)
-    pow_range = Vector(1:sim.power)
-    log_size::Float64 = 0
+    # sum over log of subtree sizes
+    ret = 0
     for size in subtree_sizes
-        @fastmath log_size = log(size)
-        @fastmath @. ret += log_size^pow_range
+        @fastmath ret += sim.func(size)
+        #@fastmath ret += log(size)
     end
     ret
 end
 
-show(io::IO, sim::LogProductSimulator) = printfmt(io, "sum of the log(subtree_size)^(1:{})
-                                                  simulation on {}", sim.power, sim.tree)
+show(io::IO, sim::SubtreeSizeSimulator) = printfmt(io, "sum of {} simulation on {}", 
+                                                   sim.funcname, sim.tree)
+# LogProductSimulator
+
+"""
+    LogProductSimulator(tree)
+
+Construct a `SubtreeSizeSimulator` that simulate the sum of log(subtree size) of trees.
+"""
+LogProductSimulator(tree) = LogProductSimulator(tree, 1)
+
+"""
+    LogProductSimulator(tree, power)
+
+Construct a `SubtreeSizeSimulator` that simulate the sum of log(subtree size)^`power` of trees.
+"""
+function LogProductSimulator(tree::FiniteTree, power::Int) 
+    function func(size::Int)
+        @fastmath log(size)^power
+    end
+    return SubtreeSizeSimulator(tree, func, format("log(subtree size)^{}", power))
+end
+
+#"""
+#    simulation(sim::AbstractSimulator)
+#
+#Return one sample in simulation `sim`.
+#"""
+#function simulation(sim::LogProductSimulator)
+#    # simulate the tree and count subtree sizes
+#    walker = SubtreeSizeWalker(sim.tree)
+#    walk(sim.tree, walker)
+#    subtree_sizes = result(walker)
+#
+#    # do the log-product computation
+#    ret = 0
+#    for size in subtree_sizes
+#        @fastmath ret += log(size)^sim.power
+#    end
+#    ret
+#end
+#
+#show(io::IO, sim::LogProductSimulator) = printfmt(io, "sum of the log(subtree_size)^{} simulation on {}", 
+#                                                  sim.power, sim.tree)
 
 # TotalPathSimulator
 
