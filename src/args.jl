@@ -41,6 +41,9 @@ function parse_commandline()
         "log-prod"
             action = :command
             help="simulation of log product of subtree sizes"
+        "size-power"
+            action = :command
+            help="simulation of sum of power of subtree sizes"
         "leaf"
             action = :command
             help="simulation of the number of leaves coutning"
@@ -72,5 +75,14 @@ function parse_commandline()
             arg_type=Int
             default=1
     end
+
+    @add_arg_table! setting["size-power"] begin
+        "--pow", "-p" 
+            dest_name="pow"
+            help="subtree size^pow"
+            arg_type=Real
+            default=0.5
+    end
+
     return parse_args(setting)
 end

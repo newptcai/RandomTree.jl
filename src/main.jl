@@ -28,6 +28,8 @@ function main()
         sim = KcutSimulator(tree_ins, parsed_args["kcut"]["k"])
     elseif parsed_args["%COMMAND%"] == "log-prod"
         sim = LogProductSimulator(tree_ins, parsed_args["log-prod"]["pow"])
+    elseif parsed_args["%COMMAND%"] == "size-power"
+        sim = SizePowerSimulator(tree_ins, parsed_args["size-power"]["pow"])
     elseif parsed_args["%COMMAND%"] == "height"
         sim = HeightSimulator(tree_ins)
     elseif parsed_args["%COMMAND%"] == "total-path"
